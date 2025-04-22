@@ -28,6 +28,15 @@
         <mxCell id="KieflmNJ7JjYXTiCyG3P-13" value="식단 공유" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="450" y="380" width="90" height="40" as="geometry" />
         </mxCell>
+        <mxCell id="KieflmNJ7JjYXTiCyG3P-15" value="이미지 입력" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="380" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KieflmNJ7JjYXTiCyG3P-16" value="택스트&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;입력&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="320" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KieflmNJ7JjYXTiCyG3P-17" value="질병 공유" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="310" width="90" height="40" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
