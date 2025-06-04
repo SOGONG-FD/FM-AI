@@ -8,7 +8,7 @@ import os
 load_dotenv()
 
 # 데이터베이스 URL 가져오기
-DB_URL = os.getenv("DB_URL")
+DB_URL = os.getenv("DATABASE_URL")
 
 # SQLAlchemy 엔진 생성
 engine = create_engine(DB_URL)
