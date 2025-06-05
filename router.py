@@ -25,7 +25,7 @@ def get_db():
         db.close()
 
 
-@router.post("ai/chat/{user_id}")
+@router.post("/ai/chat/{user_id}")
 async def chat(user_id: str, message: str, db: Session = Depends(get_db)):
     try:
         # 증상 분석 및 식단 추천을 위한 프롬프트 구성
@@ -63,7 +63,7 @@ async def chat(user_id: str, message: str, db: Session = Depends(get_db)):
 
 
 # 대화 히스토리 조회 API
-@router.get("ai/history/{user_id}")
+@router.get("/ai/history/{user_id}")
 async def get_chat_history(
     user_id: str, skip: int = 0, limit: int = 10, db: Session = Depends(get_db)
 ):
