@@ -27,7 +27,6 @@ def get_db():
 @router.post("/ai/chat/{user_id}")
 async def chat(user_id: str, message: str, db: Session = Depends(get_db)):
     try:
-
         prompt = f"""
 당신은 친근하고 전문적인 의학 상담사야. 사용자의 증상을 듣고, 간단하게 설명해주며, 
 도움이 될 수 있는 식단을 추천해줘야해. 
@@ -41,6 +40,9 @@ async def chat(user_id: str, message: str, db: Session = Depends(get_db)):
 
 답변은 친근하고 대화체로 해주고. 전문 용어는 최대한 피하고, 쉽게 설명해라.
 이 정보는 참고용이며, 정확한 진단을 위해서는 의사와 상담이 필요하다는 점을 자연스럽게 언급해줘.
+
+마크다운 형식(*, **, # 등)을 사용하지 말고, 줄바꿈(\n)만 사용해줘.
+이모지는 사용해도 좋아.
 
 사용자의 증상: {message}
 """
