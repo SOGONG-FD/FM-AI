@@ -34,7 +34,19 @@ def clean_markdown(text):
     text = re.sub(r"\[(.*?)\]\(.*?\)", r"\1", text)  # [링크](url) 제거
     text = re.sub(r"---", "", text)  # 구분선 제거
     text = re.sub(r"```.*?```", "", text, flags=re.DOTALL)  # 코드 블록 제거
-    return text
+
+    # 글머리 기호 제거 및 정리
+    text = re.sub(
+        r"^\s*[\*\-•]\s+", "", text, flags=re.MULTILINE
+    )  # 줄 시작의 글머리 기호 제거
+    text = re.sub(
+        r"\n\s*[\*\-•]\s+", "\n", text
+    )  # 줄 중간의 글머리 기호를 줄바꿈으로 변경
+
+    # 빈 줄 정리
+    text = re.sub(r"\n\s*\n\s*\n+", "\n\n", text)  # 3개 이상 연속된 줄바꿈을 2개로 정리
+
+    return text.strip()
 
 
 @router.post("/ai/chat/{user_id}")
