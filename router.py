@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 from typing import List
 from datetime import datetime
+import re
 
 from database import SessionLocal
 from models import Conversation
@@ -24,6 +25,18 @@ def get_db():
         db.close()
 
 
+def clean_markdown(text):
+    # 마크다운 기호 제거
+    text = re.sub(r"\*\*(.*?)\*\*", r"\1", text)  # **굵은 글씨** 제거
+    text = re.sub(r"\*(.*?)\*", r"\1", text)  # *기울임체* 제거
+    text = re.sub(r"#+\s", "", text)  # # 제목 제거
+    text = re.sub(r"`(.*?)`", r"\1", text)  # `코드` 제거
+    text = re.sub(r"\[(.*?)\]\(.*?\)", r"\1", text)  # [링크](url) 제거
+    text = re.sub(r"---", "", text)  # 구분선 제거
+    text = re.sub(r"```.*?```", "", text, flags=re.DOTALL)  # 코드 블록 제거
+    return text
+
+
 @router.post("/ai/chat/{user_id}")
 async def chat(user_id: str, message: str, db: Session = Depends(get_db)):
     try:
@@ -41,14 +54,11 @@ async def chat(user_id: str, message: str, db: Session = Depends(get_db)):
 답변은 친근하고 대화체로 해주고. 전문 용어는 최대한 피하고, 쉽게 설명해라.
 이 정보는 참고용이며, 정확한 진단을 위해서는 의사와 상담이 필요하다는 점을 자연스럽게 언급해줘.
 
-마크다운 형식(*, **, # 등)을 사용하지 말고, 줄바꿈(\n)만 사용해줘.
-이모지는 사용해도 좋아.
-
 사용자의 증상: {message}
 """
 
         response = model.generate_content(prompt)
-        bot_reply = response.text
+        bot_reply = clean_markdown(response.text)  # 마크다운 제거
 
         new_conversation = Conversation(
             user_id=user_id, user_message=message, bot_response=bot_reply
